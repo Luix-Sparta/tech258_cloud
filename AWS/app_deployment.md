@@ -60,6 +60,7 @@ npm start app.js &
 You've successfully deployed your Node.js application on an Ubuntu server. Visitors can now access your application through the server's IP address or domain name.
 
 ## Deployment Script
+## Method 1:
 ```
 #!/bin/bash
 
@@ -84,7 +85,64 @@ sudo systemctl enable nginx
 echo done!
 
 echo install node js
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo DEBIAN_FRONTEND=noninteractive -E bash - && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+echo done!
+
+echocheck js version
+note -v
+echo done!
+
+echo install app folder
+git clone https://github.com/Luix-Sparta/tech258-sparta-test-app.git
+echo done
+
+echo cd app folder
+cd ~/tech258-sparta-test-app/app
+echo done!
+
+echo install npm
+sudo npm install
+echo done!
+
+echo install pm2
+sudo npm install -g pm2
+echo done!
+
+echo stop app
+pm2 stop app
+echo done!
+
+echo start app
+pm2 start app.js app
+echo done!
+```
+
+## Method 2:
+```
+#!/bin/bash
+
+echo updating...
+sudo apt update -y
+echo done!
+
+echo upgrading packages...
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+echo done!
+
+echo installing nginx...
+sudo DEBIAN_FRONTEND=noninteractive apt install nginx 
+echo done!
+
+echo restarting nginx...
+sudo systemctl restart nginx
+echo done!
+
+echo enabling nginx...
+sudo systemctl enable nginx
+echo done!
+
+echo install node js
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo DEBIAN_FRONTEND=noninteractive -E bash - && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 echo done!
 
 echocheck js version
