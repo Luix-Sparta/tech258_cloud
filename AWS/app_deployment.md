@@ -11,16 +11,23 @@
   - [Deployment Script](#deployment-script)
   - [Method 1:](#method-1)
   - [Method 2:](#method-2)
+  - [Tier 2 Deployment](#tier-2-deployment)
   - [Step 1 (App)](#step-1-app)
     - [Code (App Deployment Script)](#code-app-deployment-script)
-    - [Explanation](#explanation)
+      - [Explanation](#explanation)
       - [Steps:](#steps)
-    - [Usage](#usage)
+      - [Usage](#usage)
   - [Step 2 (Database)](#step-2-database)
     - [Code (Database Script)](#code-database-script)
     - [Explanation](#explanation-1)
     - [Steps:](#steps-1)
     - [Usage](#usage-1)
+- [Monolithic vs. Two-Tier Architecture Comparison](#monolithic-vs-two-tier-architecture-comparison)
+  - [Monolithic Architecture](#monolithic-architecture)
+    - [Characteristics:](#characteristics)
+  - [Two-Tier Architecture](#two-tier-architecture)
+    - [Characteristics:](#characteristics-1)
+  - [Conclusion](#conclusion-1)
 
 ## Deploying a Node.js App on Ubuntu Server
 
@@ -190,6 +197,7 @@ pm2 start app.js app
 echo done!
 ```
 
+## Tier 2 Deployment
 ## Step 1 (App)
 ### Code (App Deployment Script)
 
@@ -258,7 +266,7 @@ echo done!
 
 
 ```
-### Explanation 
+#### Explanation 
 This script automates the deployment process for a Tier 2 environment, including updating system packages, installing and configuring Nginx as a reverse proxy, setting up Node.js and MongoDB, and deploying an application from a GitHub repository.
 
 #### Steps:
@@ -303,7 +311,7 @@ This script automates the deployment process for a Tier 2 environment, including
     - Starts the application using pm2 process manager, specifying the entry point (app.js) and application name (app).
 
 
-### Usage
+#### Usage
 
 - Ensure that the script has executable permissions (`chmod +x script_name.sh`) and is executed with appropriate privileges.
 - Customize the script variables, such as IP addresses, port numbers, and GitHub repository URL, to match your deployment environment.
@@ -416,3 +424,33 @@ This script automates the installation and configuration of MongoDB version 7.0.
 - Execute the script on the target server to install and configure MongoDB automatically.
 
 This script simplifies the process of installing and configuring MongoDB, making it easier to set up MongoDB instances consistently across different environments.
+
+# Monolithic vs. Two-Tier Architecture Comparison
+
+## Monolithic Architecture
+
+Monolithic architecture refers to a traditional architectural style where the entire application is developed, deployed, and managed as a single unit. Here are some characteristics:
+
+### Characteristics:
+- **Single Unit:** The entire application, including its components such as user interface, business logic, and data access layers, is packaged and deployed as a single unit.
+- **Tightly Coupled:** Components within the monolith are tightly coupled, meaning changes in one part may require modifications in other parts.
+- **Scalability Challenges:** Scaling individual components independently can be challenging. The entire application needs to be scaled, even if only a specific component requires additional resources.
+- **Development Simplicity:** Initially, development is often simpler as developers work within a single codebase and environment.
+- **Deployment Complexity:** Deploying changes to a monolithic application can be complex and risky, especially as the application grows larger.
+- **Technology Stack:** Typically, a monolithic application uses a single technology stack for all its components.
+
+## Two-Tier Architecture
+
+Two-tier architecture, also known as client-server architecture, involves dividing an application into two parts: client and server. Here's an overview of its characteristics:
+
+### Characteristics:
+- **Client-Server Model:** The application is divided into two parts: client, which handles the presentation logic, and server, which manages the business logic and data storage.
+- **Decoupled Components:** Components are decoupled, allowing for easier maintenance and scalability. Changes in one tier usually don't require modifications in the other.
+- **Scalability:** Two-tier architecture allows for more granular scalability. The client and server tiers can be scaled independently based on demand.
+- **Development Complexity:** Development may involve more coordination between client-side and server-side teams, but it also allows for specialization in each tier.
+- **Deployment Simplicity:** Deploying changes is typically simpler compared to monolithic architectures, as changes can be targeted to specific tiers.
+- **Technology Diversity:** Different technologies can be used for the client and server tiers, allowing for flexibility in choosing the most suitable tools for each component.
+
+## Conclusion
+
+Both monolithic and two-tier architectures have their own advantages and disadvantages. Monolithic architecture offers simplicity in development but can be challenging to scale and maintain as the application grows. On the other hand, two-tier architecture provides better scalability and flexibility but requires careful design and coordination between client and server components. The choice between these architectures depends on factors such as the size and complexity of the application, scalability requirements, and development team preferences.
